@@ -1,11 +1,10 @@
 package Controller
 
 import (
-	."LogCollection/Tools"
+	. "LogCollection/Tools"
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego"
-	"net"
 )
 
 type UploadLogController struct {
@@ -14,14 +13,14 @@ type UploadLogController struct {
 
 var ConnPoll Pool
 
-func init(){
-	var err error
-	factory  := func() (net.Conn, error) { return net.Dial("tcp", "192.168.56.1:30900") }
-	ConnPoll, err = NewChannelPool(5, 10, factory)
-	if err!=nil{
-		LogError("Create Tcp conn pool fail",err)
-	}
-}
+//func init(){
+//	var err error
+//	factory  := func() (net.Conn, error) { return net.Dial("tcp", "192.168.56.1:30900") }
+//	ConnPoll, err = NewChannelPool(5, 10, factory)
+//	if err!=nil{
+//		LogError("Create Tcp conn pool fail",err)
+//	}
+//}
 
 func (ul *UploadLogController)Post(){
 	Msg := struct {
