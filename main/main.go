@@ -9,5 +9,5 @@ import (
 
 
 func main(){
-	beego.RunWithMiddleWares("localhost:8080", apmbeego.Middleware())
+	beego.RunWithMiddleWares("0.0.0.0:8080", apmbeego.Middleware())
 }
