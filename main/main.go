@@ -4,9 +4,10 @@ import (
 	_ "LogCollection/Routers"
 	_ "LogCollection/Tools"
 	"github.com/astaxie/beego"
+	"go.elastic.co/apm/module/apmbeego"
 )
 
 
 func main(){
-	beego.Run()
+	beego.RunWithMiddleWares("localhost:8080", apmbeego.Middleware())
 }
