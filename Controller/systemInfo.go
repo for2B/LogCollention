@@ -6,7 +6,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego"
+	"go.elastic.co/apm"
 )
+
+
 
 type SystemInfoController struct {
 	beego.Controller
@@ -14,6 +17,10 @@ type SystemInfoController struct {
 
 //Get Method return SysInfo by SysId
 func (si *SystemInfoController)Get() {
+	//apm monitoring
+	span, _ := apm.StartSpan(si.Ctx.Request.Context(), "SystemInfoController.Get", "controller")
+	span.End()
+
 	SysId := si.GetString("sysid")
 
 	sysInfo,err := Model.ReadSysInfo(SysId)
@@ -28,6 +35,9 @@ func (si *SystemInfoController)Get() {
 
 //Post Method Create New SysInfo Record
 func (si *SystemInfoController)Post()  {
+	//apm monitoring
+	span, _ := apm.StartSpan(si.Ctx.Request.Context(), "SystemInfoController.Post", "controller")
+	span.End()
 
 	newSysInfo := Model.SysInfo{}
 	err := json.Unmarshal(si.Ctx.Input.RequestBody,&newSysInfo)
@@ -49,6 +59,10 @@ func (si *SystemInfoController)Post()  {
 //Put Method Update SysInfo by SysId
 func (si *SystemInfoController)Put() {
 
+	//apm monitoring
+	span, _ := apm.StartSpan(si.Ctx.Request.Context(), "SystemInfoController.Put", "controller")
+	span.End()
+
 	sysInfo := Model.SysInfo{}
 	err := json.Unmarshal(si.Ctx.Input.RequestBody,&sysInfo)
 	if err!=nil{
@@ -68,6 +82,10 @@ func (si *SystemInfoController)Put() {
 
 //Delete Method delete SysInfo Record by SysId
 func (si *SystemInfoController)Delete(){
+	//apm monitoring
+	span, _ := apm.StartSpan(si.Ctx.Request.Context(), "SystemInfoController.Delete", "controller")
+	span.End()
+
 	SysId := si.GetString("sysid")
 
 	err := Model.DeleteSysInfo(SysId)
